@@ -99,6 +99,7 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
         """
     start_index = int(np.where(np.isclose(beta_range, 1.))[0])
     beta = beta_range[start_index]
+    print("beta start at",beta)
     result = solve_eq(guess, beta, dom)
     result_total = deque([[1/beta]+result])
     guess0 = [result[0], result[1]]

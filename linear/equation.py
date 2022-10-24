@@ -97,7 +97,7 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
             pf: power factor in the unit of $k_B^2/h$
             seebeck: Seebeck coefficient in the unit of $k_B/e$
         """
-    start_index = len(beta_range)//2
+    start_index = int(np.where(np.isclose(beta_range, 1.))[0])
     beta = beta_range[start_index]
     result = solve_eq(guess, beta, dom)
     result_total = deque([[1/beta]+result])

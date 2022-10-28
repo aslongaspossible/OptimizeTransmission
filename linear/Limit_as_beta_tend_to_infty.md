@@ -1,6 +1,6 @@
 # Limit as $\beta\rightarrow\infty$
 
-\bf{Limit as $\beta\rightarrow\infty$}. According to Maassen's arguement, this is equivalent to maximizing power factor
+\textbf{Limit as $\beta\rightarrow\infty$}. According to Maassen's arguement, this is equivalent to maximizing power factor
 
 \begin{equation}
 GS^2=\frac{k_\text{B}^2}{h}\frac{I_1^2}{I_0}.

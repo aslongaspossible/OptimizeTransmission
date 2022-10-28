@@ -87,6 +87,7 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
     
     Args:
         dom: Density of modes.
+        guess: A guess for beta=0.
         
     Returns:
         result_total: Stack of results. Each result contains:

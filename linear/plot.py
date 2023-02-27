@@ -66,12 +66,12 @@ def plot_delta_step(
     _, ax = axes
     if subplot_label is not None:
         ax.text(0.2, 0.9, subplot_label,transform=ax.transAxes)
-    ax.plot(x_range, step, 'r', label=r'step function')
     ax.plot(x_range, delta, 'k', label=r'delta function')
+    ax.plot(x_range, step, 'r', label=r'step function')
     ax.set_xlim([x_range.min(), x_range.max()])
-    ax.set_xlabel(r"$(\epsilon-\mu)/(k_\mathrm{B}T)$")
+    ax.set_xlabel(r"$(E-\mu)/(k_\mathrm{B}T)$")
     ax.set_ylim([0,2]) # 
-    ax.set_ylabel(r'$\mathcal{T}(\epsilon)$')
+    ax.set_ylabel(r'$M(E)\mathcal{T}(E)$')
     ax.set_yticks([0, 1, 2])
     ax.legend()
     return axes

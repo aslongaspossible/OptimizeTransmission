@@ -16,7 +16,7 @@ mpl.rcParams['xtick.major.size'] = 15
 mpl.rcParams['xtick.major.width'] = 2
 mpl.rcParams['ytick.major.size'] = 15
 mpl.rcParams['ytick.major.width'] = 2
-# from matplotlib.patches import ConnectionPatch
+from matplotlib.patches import ConnectionPatch
 
 
 def gaussian(x, mu, sig):
@@ -76,3 +76,62 @@ def plot_delta_step(
     ax.legend()
     return axes
 # plot_delta_step()
+
+def plot_const(axes=None):
+    data = np.loadtxt('const_dom.csv',delimiter=',')
+    if axes==None:
+        fig = plt.figure(figsize=(13, 17), dpi=300)
+        ax1 = plt.subplot2grid((2,3), (1,0), colspan=3)
+        ax2 = plt.subplot2grid((2,3), (0,0), colspan=2)
+        ax3 = plt.subplot2grid((2,3), (0,2))
+    else:
+        fig, (ax1, ax2, ax3) = axes
+    ax1.plot(data[:,0], data[:,3], '#d62728')
+    ax1.set_xlim(0.,20.)
+    ax1.set_xlabel(r"$M_0/\beta$")
+    ax1.set_ylabel(r'$zT^\mathrm{max}$')
+    ax1.set_ylim(0,10)
+    ax1.text(0.2, 0.9, '(c)',transform=ax1.transAxes)
+    ax1.text(0.32, 0.32, r"$(5.65,4)$",transform=ax1.transAxes, fontdict={'size':30})
+    ax1.set_yticks([4, 8,])
+    ax2.plot(data[:,0],data[:,1], color='#1f77b4',label=r'$x_1$')
+    ax2.plot(data[:,0],data[:,2], color='#ff7f0e', label=r'$x_2$')
+    ax2.legend()
+    ax2.set_xlim(0, ax1.transData.inverted().transform([ax2.transAxes.transform([1,0])[0],0])[0])
+    # ax2.set_xticks([0,5,10,15])
+    ax2.set_xlabel(r".~~~$M_0/\beta$") # , loc='left'
+    ax2.set_ylim(0,12)
+    ax2.set_ylabel(r'$x=(\varepsilon-\mu)/(k_\mathrm{B}T)$')
+    ax2.text(0.3, 0.9, '(a)',transform=ax2.transAxes)
+    ax2.text(0.48, 0.48, r"$x_2=5.4$",transform=ax2.transAxes, fontdict={'size':30})
+    ax2.text(0.48, 0.22, r"$x_1=2.1$",transform=ax2.transAxes, fontdict={'size':30})
+    ax2.set_yticks([4, 8, 12])
+    basepoint = data[188]
+    boxy = np.linspace(0,12,num=1200)
+    boxx = list(map(lambda y: 1 if y else 0, (boxy > basepoint[1]) & (boxy < basepoint[2])))
+    ax3.plot(boxx, boxy, 'k')
+    ax3.set_xlim(0, 1.5)
+    ax3.set_xticks([0,1])
+    ax3.set_xlabel(r'$\mathcal{T}(x)$')
+    ax3.set_ylim(0,12)
+    ax3.text(0.2, 0.9, '(b)',transform=ax3.transAxes)
+    ax3.set_yticks([4, 8, 12])
+    fig.add_artist(ConnectionPatch(
+        xyA=(basepoint[0],basepoint[3]), xyB=(basepoint[0], basepoint[2]), 
+        coordsA='data', coordsB='data', 
+        axesA=ax1, axesB=ax2, 
+        color='grey', ls='--'
+    ))
+    fig.add_artist(ConnectionPatch(
+        xyA=(basepoint[0],basepoint[1]), xyB=(0,basepoint[1]), 
+        coordsA='data', coordsB='data', 
+        axesA=ax2, axesB=ax3, 
+        color='#1f77b4', ls='--'
+    ))
+    fig.add_artist(ConnectionPatch(
+        xyA=(basepoint[0],basepoint[2]), xyB=(0,basepoint[2]), 
+        coordsA='data', coordsB='data', 
+        axesA=ax2, axesB=ax3, 
+        color='#ff7f0e', ls='--'
+    ))
+    return axes

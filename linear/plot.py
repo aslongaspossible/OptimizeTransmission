@@ -135,3 +135,10 @@ def plot_const(axes=None):
         color='#ff7f0e', ls='--'
     ))
     return axes
+
+def single_plot(x,y,axes=None):
+    if axes is None:
+        axes = plt.subplots(figsize=(13, 10))
+    _, ax = axes
+    ax.plot(x,y)
+    return axes

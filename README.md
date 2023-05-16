@@ -20,4 +20,4 @@ The result is a table; each row is for different $\beta$, and columns are
 
 successively.
 
-More demo scripts can be seen in `linear/linear.ipynb`.
+More demo scripts can be seen in `linear/*.ipynb`.

@@ -116,3 +116,7 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
         guess = [result[0], result[1]]
     # print(result_total)
     return np.vstack(result_total)
+
+
+def kappa_e(x1, x2, dom):
+    return (I(x1,x2,2,dom) - I(x1,x2,1,dom)**2 / I(x1,x2,0,dom))

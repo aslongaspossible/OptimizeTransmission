@@ -27,3 +27,26 @@ def basin(x:np.ndarray, mu:float, gap:float) -> np.ndarray:
     bc = gap/2 +mu # bottom of conducting band
     low = np.logical_and(x>tv, x<bc)
     return (4-2*low)*2
+
+
+def boxcar(x, x1, x2):
+    x1, x2 = sorted([x1, x2])
+    return np.where(np.logical_or(x<x1, x>x2), 0, 1)
+
+def trapezoid(x, x1, x2):
+    x1, x2 = sorted([x1, x2])
+    d = (x2-x1)/4
+    return np.piecewise(
+        x,
+        [
+            x < x1+d,
+            x > x2-d,
+            np.logical_or(x<x1-d, x>x2+d),
+        ], # the order matters
+        [
+            lambda x: (x-x1+d)/2/d,
+            lambda x: (x2+d-x)/2/d,
+            0.,
+            1.
+        ]
+    )

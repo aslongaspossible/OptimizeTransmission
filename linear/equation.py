@@ -2,6 +2,7 @@ import numpy as np
 from scipy import integrate
 from scipy.optimize import root
 from collections import deque
+from dom import const as constdom
 
 
 def kernel(x:float, j:int, dom) -> float:
@@ -120,3 +121,24 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
 
 def kappa_e(x1, x2, dom):
     return (I(x1,x2,2,dom) - I(x1,x2,1,dom)**2 / I(x1,x2,0,dom))
+
+def sigma_seebeck_zT(x1, x2, beta, dom=constdom):
+    """
+    Args:
+      x1, x2: bounds of the integral (support of dom)
+      dom: Density of Modes / number of modes
+      beta: lattice heat conductance
+    
+    Returns:
+      electrical conductance
+      Seebeck coefficient
+      zT
+    """
+    i0 = I(x1,x2,0,dom)
+    i1 = I(x1,x2,1,dom)
+    i12 = i1**2
+    return [
+        i0,
+        np.divide(i1, i0),
+        np.divide(i12, ((I(x1,x2,2,dom)+beta)*i0-i12))
+        ]

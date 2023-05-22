@@ -142,3 +142,12 @@ def single_plot(x,y,axes=None):
     _, ax = axes
     ax.plot(x,y)
     return axes
+
+def multi_plot(x, y_list, legend_list, axes=None):
+    if axes is None:
+        axes = plt.subplots(figsize=(13, 10))
+    _, ax = axes
+    for y, legend in zip(y_list, legend_list):
+        ax.plot(x,y, label=legend)
+    ax.legend()
+    return axes

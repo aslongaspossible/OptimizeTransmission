@@ -143,11 +143,15 @@ def single_plot(x,y,axes=None):
     ax.plot(x,y)
     return axes
 
-def multi_plot(x, y_list, legend_list, axes=None):
+def multi_plot(x, y_list, label_list, line_style_list=[], axes=None):
     if axes is None:
         axes = plt.subplots(figsize=(13, 10))
     _, ax = axes
-    for y, legend in zip(y_list, legend_list):
-        ax.plot(x,y, label=legend)
+    if line_style_list:
+        for y, label, line_style in zip(y_list, label_list, line_style_list):
+            ax.plot(x, y, line_style, label=label)
+    else:
+        for y, label in zip(y_list, label_list):
+            ax.plot(x,y, label=label)
     ax.legend()
     return axes

@@ -15,7 +15,7 @@ def kernel(x:float, j:int, dom) -> float:
     ex = np.exp(-abs(x)) # To avoid overflow.
     return x**j *dom(x) * ex/(1+ex)**2
 
-def I(x1, x2, j, dom) -> float:
+def I(x1, x2, j, dom=constdom) -> float:
     """Return $I_j$.
     
     Args:
@@ -29,7 +29,7 @@ def I(x1, x2, j, dom) -> float:
 def eq(x:list, beta:float, dom) -> list[float]:
     """Equations"""
     numerator = I(x[0], x[1], 2, dom) +beta
-    # 把除法都变成乘法，好处是不容易发散，且 Jacobian 不含 beta。
+    # Avoid division
     return [
         (x[0]+x[1]) *I(x[0],x[1],1,dom) -2*numerator,
         x[0]*x[1]*I(x[0],x[1],0,dom) -numerator

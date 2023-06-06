@@ -1,4 +1,5 @@
 import numpy as np
+from scipy import interpolate
 
 
 def const(_:float) -> float:
@@ -49,4 +50,16 @@ def trapezoid(x, x1, x2):
             0.,
             1.
         ]
+    )
+
+def disturb_boxcar(x1, x2, a, rand_dist=np.random.rand(10001)):
+    x_range = np.linspace(-10, 10, 10001)
+    disturb = a * rand_dist
+    return interpolate.interp1d(
+        x_range,
+        np.where(
+            np.logical_and(x_range>x1, x_range<x2),
+            1 - disturb,
+            disturb
+        )
     )

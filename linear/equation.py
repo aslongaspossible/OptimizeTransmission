@@ -119,8 +119,14 @@ def solve4beta(dom, beta_range=np.logspace(-3,3,num=301), guess=[1.6, 8.9]):
     return np.vstack(result_total)
 
 
-def kappa_e(x1, x2, dom):
-    return (I(x1,x2,2,dom) - I(x1,x2,1,dom)**2 / I(x1,x2,0,dom))
+def kappa(x1, x2, dom=constdom):
+    """Return Kappa_0 and Kapppa_e"""
+    i2 = I(x1,x2,2,dom)
+    i0 = I(x1,x2,0,dom)
+    return np.array([
+        i2,
+        i2 - I(x1,x2,1,dom)**2/i0
+    ])
 
 def sigma_seebeck_zT(x1, x2, beta, dom=constdom):
     """

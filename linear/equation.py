@@ -125,7 +125,7 @@ def kappa(x1, x2, dom=constdom):
     i0 = I(x1,x2,0,dom)
     return np.array([
         i2,
-        i2 - I(x1,x2,1,dom)**2/i0
+        i2 - np.divide(I(x1,x2,1,dom)**2, i0)
     ])
 
 def sigma_seebeck_zT(x1, x2, beta, dom=constdom):

@@ -1,6 +1,6 @@
-[TOC]
-
 # 优化 $zT$ 的方法
+
+[TOC]
 
 ## 把 $zT$ 写作能带的泛函
 
@@ -180,12 +180,12 @@ $$
 \begin{equation}
  \frac{x_1+x_2}{2}\overline{I_0'}=x_1x_2\overline{I_1'}\label{serialtot}
  \end{equation}
- $$
- 
+$$
+
  其中把 $\overline{I_n'}$ 替换为展开到三阶的泰勒级数：
 $$
  \overline{I_n'}\approx\sum_{k=1}^{3}\frac{f_n^{(k-1)}}{k!}\varepsilon^k
- $$
+$$
 
 一些有用的公式：
 $$
